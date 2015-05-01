@@ -50,7 +50,7 @@ public class StoreActivity extends Activity implements OnRefreshListener,
 		if (update != null) {			
 			stores = storeDbService.getStores();
 		}else{
-			System.out.println("hahahahah");
+			
 			timeService.setStoreUpateTime(new Date());
 			if (i == 0) {
 				i = 1;
@@ -81,7 +81,9 @@ public class StoreActivity extends Activity implements OnRefreshListener,
 	public void onLoad() {
 		
 		i++;
+		pageService.setPage(i);
 		loadData(AutoListView.LOAD, 0);
+		System.out.println("加载数据");
 	
 	}
 
@@ -101,6 +103,7 @@ public class StoreActivity extends Activity implements OnRefreshListener,
 				msg.what = what;
 				
 				if (flag==0) {
+					System.out.println("加载数据");
 					i = pageService.getPage();
 					if (i > 0) {
 						String url = urlPath + "stores?page=" + i;
@@ -151,11 +154,13 @@ public class StoreActivity extends Activity implements OnRefreshListener,
 			
 			switch (msg.what) {
 			case AutoListView.REFRESH:
-				stores.clear();
-				stores_lv.onRefreshComplete();
+				
+				
 				if (ss.size() == 0) {
-					
+					stores_lv.onRefreshComplete();
 				}else{
+					stores.clear();
+					stores_lv.onRefreshComplete();
 					ss = storeDbService.getStores();
 					stores.addAll(ss);
 					
@@ -166,7 +171,7 @@ public class StoreActivity extends Activity implements OnRefreshListener,
 				if (msg.obj != null) {
 					stores_lv.onLoadComplete();
 					if (ss.size() == 5) {
-						storeDbService.saveOrUpdateStores(ss);
+						storeDbService.saveOrUpdateStores(ss);	
 						stores.clear();
 						ss = storeDbService.getStores();
 						stores.addAll(ss);
@@ -174,6 +179,7 @@ public class StoreActivity extends Activity implements OnRefreshListener,
 						if (ss.size() == 0) {
 							
 						}else{
+							System.out.println("加载数据");
 							storeDbService.saveOrUpdateStores(ss);
 							stores.clear();
 							ss = storeDbService.getStores();

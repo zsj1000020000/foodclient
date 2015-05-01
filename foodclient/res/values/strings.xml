@@ -3,8 +3,8 @@
 
     <string name="app_name">Foodclient</string>
     <string name="hello">Hello World, FoodclientActivity!</string>
-    <string name="server_url">http://192.168.1.111:8080/food-server-0.0.1/mobile/</string>
-    <string name="domain">http://192.168.1.111:8080/food-server-0.0.1</string>
+    <string name="server_url">http://192.168.1.104:8080/food-server-0.0.1/mobile/</string>
+    <string name="domain">http://192.168.1.104:8080/food-server-0.0.1</string>
     <string name="action_settings">Settings</string>
     <!-- 自定义组件 -->
     <string name="pull_to_refresh">下拉可以刷新</string>
