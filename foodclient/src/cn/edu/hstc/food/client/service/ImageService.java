@@ -14,6 +14,7 @@ public class ImageService {
 	 * @return
 	 */
 	public static byte[] getImage(String path) throws Exception{
+		System.out.println("hehehe");
 		URL url = new URL(path);
 		HttpURLConnection conn = (HttpURLConnection) url.openConnection();//����HTTPЭ�����Ӷ���
 		conn.setConnectTimeout(5000);

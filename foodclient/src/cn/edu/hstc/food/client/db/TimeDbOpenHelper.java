@@ -12,7 +12,7 @@ public class TimeDbOpenHelper extends SQLiteOpenHelper {
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {//是在数据库每一次被创建的时候调用的
-		db.execSQL("CREATE TABLE time(id integer primary key autoincrement,sid integer, fid integer ,upate_time Long)");
+		db.execSQL("CREATE TABLE time(id integer primary key autoincrement,sid integer, upate_time Long)");
 	}
 
 	@Override
