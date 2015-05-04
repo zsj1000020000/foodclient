@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <TextView android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/food_store_name"/>
+    <TextView android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/food_store_info"/>
+    <TextView android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/food_phone_number"/>
+    
+     <cn.edu.hstc.widget.AutoListView android:layout_width="fill_parent"
+       android:layout_height="fill_parent"
+       android:layout_marginTop="20px"
+       android:id="@+id/food_lv"/>
+
+</LinearLayout>

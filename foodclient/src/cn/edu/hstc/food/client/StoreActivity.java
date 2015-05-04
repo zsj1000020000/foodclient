@@ -14,9 +14,13 @@ import cn.edu.hstc.widget.AutoListView;
 import cn.edu.hstc.widget.AutoListView.OnLoadListener;
 import cn.edu.hstc.widget.AutoListView.OnRefreshListener;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Toast;
 
 public class StoreActivity extends Activity implements OnRefreshListener,
@@ -72,6 +76,7 @@ public class StoreActivity extends Activity implements OnRefreshListener,
 		}
 		adapter = new StoreAdapter(this, stores);
 		stores_lv.setAdapter(adapter);
+		stores_lv.setOnItemClickListener(new StoreOnItemClickListener());
 		stores_lv.setOnLoadListener(this);
 		stores_lv.setOnRefreshListener(this);		
 		
@@ -202,4 +207,27 @@ public class StoreActivity extends Activity implements OnRefreshListener,
 			adapter.notifyDataSetChanged();
 		};
 	};
+	
+	 class StoreOnItemClickListener implements OnItemClickListener {
+		
+		public void onItemClick(AdapterView<?> parent, View view,
+				int position, long id) {
+			 
+			Store store = stores.get(position);
+			Integer sid = store.getId();
+			String name = store.getName();
+			String info = store.getInfo();
+			String phone_number = store.getPhone_number();
+			
+			Intent intent = new Intent(getApplicationContext(), FoodActivity.class);
+			
+			intent.putExtra("sid", sid);
+			intent.putExtra("name", name);
+			intent.putExtra("info", info);
+			intent.putExtra("phone_number", phone_number);
+			startActivity(intent);
+			
+		}
+		
+	}
 }

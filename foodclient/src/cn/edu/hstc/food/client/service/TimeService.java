@@ -21,14 +21,25 @@ public class TimeService {
 	public void setStoreUpateTime(Date updateTime) {
 		SQLiteDatabase db = helper.getWritableDatabase();
 		db.execSQL(
-				"replace into time(id,sid, fid, upate_time) values(?,?,?,?)",
-				new Object[] { 1, 0, 0, updateTime.getTime() });
+				"replace into time(id,sid,upate_time) values(?,?,?)",
+				new Object[] { 1, 0,updateTime.getTime() });
 		db.close();
 	}
 
 	public Long getStoreUpdateTime() {
 		SQLiteDatabase db = helper.getReadableDatabase();
 		Cursor cursor = db.rawQuery("select upate_time from time where id=1", null);
+		Long updateTime = null;
+		if(cursor.moveToFirst()){
+			updateTime = cursor.getLong(cursor.getColumnIndex("upate_time"));				
+		}
+		cursor.close();
+		return updateTime;
+	}
+	
+	public Long getFoodUpdateTime(Integer sid) {
+		SQLiteDatabase db = helper.getReadableDatabase();
+		Cursor cursor = db.rawQuery("select upate_time from time where sid=" + sid, null);
 		Long updateTime = null;
 		if(cursor.moveToFirst()){
 			updateTime = cursor.getLong(cursor.getColumnIndex("upate_time"));				

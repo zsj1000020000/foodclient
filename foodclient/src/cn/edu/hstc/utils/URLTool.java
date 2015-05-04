@@ -21,6 +21,7 @@ public class URLTool {
 			connection.setConnectTimeout(connectTimeout);
 			connection.setRequestMethod(method);
 			if (connection.getResponseCode() == 200) {
+				System.out.println("hahahah");
 				InputStream in = connection.getInputStream();
 				String content = new String(StreamTool.read(in));
 				return content;
