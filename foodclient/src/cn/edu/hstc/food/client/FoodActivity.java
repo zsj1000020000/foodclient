@@ -151,7 +151,7 @@ public class FoodActivity extends Activity implements OnLoadListener,
 					
 					
 				}
-				System.out.println("还是公司法");
+				
 				handler.sendMessage(msg);
 			}
 		}).start();
