@@ -1,6 +1,8 @@
 package cn.edu.hstc.food.client.service;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import cn.edu.hstc.food.client.db.TimeDbOpenHelper;
 import android.content.Context;
@@ -37,15 +39,36 @@ public class TimeService {
 		return updateTime;
 	}
 	
-	public Long getFoodUpdateTime(Integer sid) {
+	public void setFoodUpateTime(Integer id,Integer sid ,Date updateTime) {
+		SQLiteDatabase db = helper.getWritableDatabase();
+		if (id != null) {
+			db.execSQL(
+					"replace into time(id,sid,upate_time) values(?,?,?)",
+					new Object[] { id, sid,updateTime.getTime() });
+		}else{
+			db.execSQL(
+					"replace into time(sid,upate_time) values(?,?)",
+					new Object[] {sid,updateTime.getTime() });
+		}
+		
+		db.close();
+	}
+	
+	public Map<String, Object> getFoodUpdateTime(Integer sid) {
 		SQLiteDatabase db = helper.getReadableDatabase();
-		Cursor cursor = db.rawQuery("select upate_time from time where sid=" + sid, null);
+		 Map<String, Object> params = new HashMap<String, Object>();
+		Cursor cursor = db.rawQuery("select id,upate_time from time where sid=" + sid, null);
 		Long updateTime = null;
+		Integer id = null;
 		if(cursor.moveToFirst()){
-			updateTime = cursor.getLong(cursor.getColumnIndex("upate_time"));				
+			updateTime = cursor.getLong(cursor.getColumnIndex("upate_time"));	
+			id = cursor.getInt(cursor.getColumnIndex("id"));
 		}
 		cursor.close();
-		return updateTime;
+		params.put("id", id);
+		System.out.println(updateTime);
+		params.put("upate_time", updateTime);
+		return params;
 	}
 
 	public TimeDbOpenHelper getHelper() {
