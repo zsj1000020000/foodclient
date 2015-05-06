@@ -3,6 +3,7 @@ package cn.edu.hstc.food.client.service;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 import cn.edu.hstc.food.client.db.FoodDbOpenHelper;
 import cn.edu.hstc.food.client.domain.Food;
 import android.content.Context;
@@ -38,8 +39,8 @@ public class FoodDbService {
 	public List<Food> getFoods(Integer sid) {
 		List<Food> foods = new ArrayList<Food>();
 		SQLiteDatabase db = helper.getReadableDatabase();
-		Cursor cursor = db.rawQuery("select * from food order by id desc",
-				null);
+		Cursor cursor = db.rawQuery("select * from food where sid= ? order by id desc",
+				new String[] {sid+""});
 		while (cursor.moveToNext()) {
 			int id = cursor.getInt(cursor.getColumnIndex("id"));
 			String name = cursor.getString(cursor.getColumnIndex("name"));
@@ -56,7 +57,7 @@ public class FoodDbService {
 					new Date(updateTime), isDelete,sid);
 			foods.add(food);
 		}
-
+		db.close();
 		return foods;
 	}
 

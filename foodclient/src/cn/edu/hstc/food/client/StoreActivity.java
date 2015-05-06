@@ -212,8 +212,8 @@ public class StoreActivity extends Activity implements OnRefreshListener,
 		
 		public void onItemClick(AdapterView<?> parent, View view,
 				int position, long id) {
-			 
-			Store store = stores.get(position);
+			 System.out.println(position);
+			Store store = stores.get(position -1);
 			Integer sid = store.getId();
 			String name = store.getName();
 			String info = store.getInfo();
@@ -225,6 +225,10 @@ public class StoreActivity extends Activity implements OnRefreshListener,
 			intent.putExtra("name", name);
 			intent.putExtra("info", info);
 			intent.putExtra("phone_number", phone_number);
+			System.out.println("sid:" + sid);
+			System.out.println("name:" + name);
+			System.out.println("info:" + info);
+			System.out.println("phone_number:" + phone_number);
 			startActivity(intent);
 			
 		}
