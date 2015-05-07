@@ -3,6 +3,7 @@ package cn.edu.hstc.food.client;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+
 import cn.edu.hstc.food.client.adapter.FoodAdapter;
 import cn.edu.hstc.food.client.domain.Food;
 import cn.edu.hstc.food.client.service.FoodDbService;
@@ -15,9 +16,12 @@ import cn.edu.hstc.widget.AutoListView.OnLoadListener;
 import cn.edu.hstc.widget.AutoListView.OnRefreshListener;
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,6 +40,9 @@ public class FoodActivity extends Activity implements OnLoadListener,
 	private int i;
 	private int sid;
 	private String url;
+	private Button call;
+	private String phone_number;
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +52,7 @@ public class FoodActivity extends Activity implements OnLoadListener,
 		pageService = new FoodPageService(this);
 		timeService = new TimeService(this);
 		foodDbService = new FoodDbService(this);
+		call = (Button) this.findViewById(R.id.call);
 		store_name = (TextView) this.findViewById(R.id.food_store_name);
 		store_info = (TextView) this.findViewById(R.id.food_store_info);
 		store_phone_number = (TextView) this
@@ -54,11 +62,12 @@ public class FoodActivity extends Activity implements OnLoadListener,
 		sid = intent.getIntExtra("sid", 0);
 		String name = intent.getStringExtra("name");
 		String info = intent.getStringExtra("info");
-		String phone_number = intent.getStringExtra("phone_number");
+		phone_number = intent.getStringExtra("phone_number");
 		store_name.setText("店名：" + name);
 		store_info.setText("简介:\n" + info);
 		store_phone_number.setText("phone:" + phone_number);
 		i = pageService.getPage(sid);
+		
 		Long updateTime = (Long) timeService.getFoodUpdateTime(sid).get(
 				"upate_time");
 		url = getString(R.string.server_url);
@@ -87,6 +96,7 @@ public class FoodActivity extends Activity implements OnLoadListener,
 		food_lv.setAdapter(adapter);
 		food_lv.setOnLoadListener(this);
 		food_lv.setOnRefreshListener(this);
+		call.setOnClickListener(new ButtonClickListener());
 	}
 
 	public void onRefresh() {
@@ -213,4 +223,24 @@ public class FoodActivity extends Activity implements OnLoadListener,
 			adapter.notifyDataSetChanged();
 		};
 	};
+	
+	  private final class ButtonClickListener implements View.OnClickListener{
+		 
+
+			public void onClick(View v) {
+				
+				
+				Intent intent = new Intent();
+				intent.setAction("android.intent.action.CALL");
+				
+				intent.setData(Uri.parse("tel:"+ phone_number));
+				startActivity(intent);//方法内部会自动为Intent添加类别：android.intent.category.DEFAULT
+			}
+			
+			
+			
+	    }
+	  
+	  
+	
 }

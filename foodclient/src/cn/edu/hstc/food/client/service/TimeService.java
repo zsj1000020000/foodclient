@@ -36,6 +36,7 @@ public class TimeService {
 			updateTime = cursor.getLong(cursor.getColumnIndex("upate_time"));				
 		}
 		cursor.close();
+		db.close();
 		return updateTime;
 	}
 	
@@ -68,6 +69,7 @@ public class TimeService {
 		params.put("id", id);
 		System.out.println(updateTime);
 		params.put("upate_time", updateTime);
+		db.close();
 		return params;
 	}
 

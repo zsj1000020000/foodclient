@@ -13,6 +13,10 @@
     <TextView android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/food_phone_number"/>
+    <Button android:layout_width="wrap_content"
+        android:layout_height="wrap_content" 
+        android:text="@string/call"
+        android:id="@+id/call"/>
     
      <cn.edu.hstc.widget.AutoListView android:layout_width="fill_parent"
        android:layout_height="fill_parent"
